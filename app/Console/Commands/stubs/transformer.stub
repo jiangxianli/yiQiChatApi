@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use League\Fractal\TransformerAbstract;
+
+class DummyClass extends TransformerAbstract
+{
+    protected $defaultIncludes = [
+
+    ];
+
+    protected $availableIncludes = [
+
+    ];
+
+    public function transform($transform)
+    {
+        return [
+TransformContent
+        ];
+    }
+}

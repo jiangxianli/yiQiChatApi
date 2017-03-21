@@ -1,0 +1,8 @@
+/.idea
+/vendor
+/bower_components
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+/public/uploads
