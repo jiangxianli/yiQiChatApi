@@ -7,3 +7,5 @@
 
 ## 相关
 - [yiQiChat前端项目](https://github.com/jiangxianli/yiQiChat)
+
+> 喜欢️请`:star2:` !, 尽量不要fork !
