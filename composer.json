@@ -65,13 +65,10 @@
     "config": {
         "preferred-install": "dist"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "packagist": {
             "type": "composer",
-            "url": "http://packagist.phpcomposer.com"
-        },
-        {
-            "packagist": false
+            "url": "https://packagist.phpcomposer.com"
         }
-    ]
+    }
 }
