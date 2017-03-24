@@ -4,3 +4,6 @@
 # 安装
 - 配置好.env中的环境配置文件
 - 使用`php artisan migrate`命令执行数据库迁移文件，创建表结构
+
+#相关
+- [yiQiChat前端项目](https://github.com/jiangxianli/yiQiChat)
