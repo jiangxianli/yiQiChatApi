@@ -10,6 +10,4 @@ class MoodPraise extends Model
     protected $table = 'mood_praises';
 
 
-
-
 }

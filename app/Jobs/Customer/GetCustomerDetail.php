@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class GetCustomerDetail extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -23,7 +23,7 @@ class GetCustomerDetail extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-       $customer = Customer::where('uuid',$data['uuid'])->first();
+        $customer = Customer::where('uuid', $data['uuid'])->first();
 
         return $customer;
     }

@@ -146,7 +146,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Hardywen\UcpaasSms\UcpaasSmsServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-//        Hardywen\Yimei\YimeiServiceProvider::class,
+        //        Hardywen\Yimei\YimeiServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -206,7 +206,7 @@ return [
         'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
         'Clockwork' => Clockwork\Support\Laravel\Facade::class,
         'UcpaasSms' => Hardywen\UcpaasSms\Facade\UcpaasSms::class,
-//        'Yimei' => Hardywen\Yimei\Facades\Yimei::class,
+        //        'Yimei' => Hardywen\Yimei\Facades\Yimei::class,
 
     ],
 

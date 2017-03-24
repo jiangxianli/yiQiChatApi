@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return array(
 
@@ -11,8 +11,8 @@ return array(
     |
     */
 
-    'filename'  => '_ide_helper',
-    'format'    => 'php',
+    'filename' => '_ide_helper',
+    'format'   => 'php',
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return array(
     'include_helpers' => false,
 
     'helper_files' => array(
-        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ),
 
     /*
@@ -56,7 +56,7 @@ return array(
 
     'extra' => array(
         'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
-        'Session' => array('Illuminate\Session\Store'),
+        'Session'  => array('Illuminate\Session\Store'),
     ),
 
     'magic' => array(
@@ -71,7 +71,7 @@ return array(
             'emergency' => 'Monolog\Logger::addEmergency',
         )
     ),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Interface implementations
@@ -81,8 +81,8 @@ return array(
     | are detected by the helpers, others can be listed below.
     |
     */
-    
-    'interfaces' => array(
+
+    'interfaces'      => array(
         '\Illuminate\Contracts\Auth\Authenticatable' => config('auth.model', 'App\User'),
     ),
 
@@ -112,8 +112,6 @@ return array(
     |  ),
     |
     */
-    'custom_db_types' => array(
-
-    ),
+    'custom_db_types' => array(),
 
 );

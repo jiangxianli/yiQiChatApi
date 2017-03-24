@@ -11,7 +11,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class CreateComment extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -27,11 +27,11 @@ class CreateComment extends Job implements SelfHandling
 
         $comment = new MoodComment();
 
-        $comment->mood_id = $data['mood_id'];
+        $comment->mood_id     = $data['mood_id'];
         $comment->customer_id = \Auth::user()->id;
-        $comment->ip = $this->request->getClientIp();
+        $comment->ip          = $this->request->getClientIp();
 
-        $comment->content = $data['content'];
+        $comment->content   = $data['content'];
         $comment->father_id = $data['father_id'];
 
         $comment->save();

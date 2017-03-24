@@ -16,8 +16,8 @@ class AddUserNameToCustomersTable extends Migration
             $table->string('user_name')->default(''); //昵称
             $table->boolean('sex')->default(true); //性别
             $table->boolean('is_login')->default(false); //是否已登录
-            $table->decimal('lng',11,8)->default(0);
-            $table->decimal('lat',11,8)->default(0);
+            $table->decimal('lng', 11, 8)->default(0);
+            $table->decimal('lat', 11, 8)->default(0);
         });
     }
 

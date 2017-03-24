@@ -31,14 +31,15 @@ abstract class Job
      * @param $data   新值
      * @return mixed
      */
-    public static function getSessionDefaultVal($prefix,$key,$default,$data){
+    public static function getSessionDefaultVal($prefix, $key, $default, $data)
+    {
 
 
-        if($data){
+        if ($data) {
 
-            session()->put($prefix.'_'.$key,$data);
+            session()->put($prefix . '_' . $key, $data);
 
-        }else if( !($data = session()->get($prefix.'_'.$key)) ) {
+        } else if (!($data = session()->get($prefix . '_' . $key))) {
 
             session()->put($prefix . '_' . $key, $default);
 
@@ -50,15 +51,16 @@ abstract class Job
 
     }
 
-    public static function throwException($code,$message=null,$statusCode=422){
+    public static function throwException($code, $message = null, $statusCode = 422)
+    {
 
-        if(is_null($message)){
+        if (is_null($message)) {
 
-            $message = trans('error.'.$code) ? trans('error.'.$code) : trans('error.undefined') ;
+            $message = trans('error.' . $code) ? trans('error.' . $code) : trans('error.undefined');
 
         }
 
-        throw new HttpException($statusCode,$message,null,[],$code);
+        throw new HttpException($statusCode, $message, null, [], $code);
 
     }
 }

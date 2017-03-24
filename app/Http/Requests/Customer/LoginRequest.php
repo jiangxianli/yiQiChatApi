@@ -24,7 +24,7 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'account' => 'required|cnphone',
+            'account'  => 'required|cnphone',
             'password' => 'required'
         ];
     }

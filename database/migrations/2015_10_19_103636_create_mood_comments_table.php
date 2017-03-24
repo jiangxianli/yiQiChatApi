@@ -15,7 +15,7 @@ class CreateMoodCommentsTable extends Migration
         Schema::create('mood_comments', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('content',1500)->default('');
+            $table->string('content', 1500)->default('');
 
             $table->integer('father_id')->default(0);
 

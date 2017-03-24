@@ -14,7 +14,7 @@ class GetTotalUnreadNum extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,7 +28,7 @@ class GetTotalUnreadNum extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $count = Message::where('to',\Auth::user()->id)->orderBy('created_at','asc')->where('is_read',false)->count();
+        $count = Message::where('to', \Auth::user()->id)->orderBy('created_at', 'asc')->where('is_read', false)->count();
 
         return $count;
 

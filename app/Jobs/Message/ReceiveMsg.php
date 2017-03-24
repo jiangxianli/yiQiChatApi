@@ -14,7 +14,7 @@ class ReceivetMsg extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,9 +28,9 @@ class ReceivetMsg extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $message = Message::where('to',\Auth::user()->id)->where('id',$data['id'])->first();
+        $message = Message::where('to', \Auth::user()->id)->where('id', $data['id'])->first();
 
-        if($message){
+        if ($message) {
 
             $message->is_received = true;
 

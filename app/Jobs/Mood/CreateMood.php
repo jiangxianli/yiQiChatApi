@@ -10,7 +10,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class CreateMood extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,12 +28,12 @@ class CreateMood extends Job implements SelfHandling
 
         $mood->fill($data);
 
-        $mood->u_num = time().rand(10000,99999);
+        $mood->u_num       = time() . rand(10000, 99999);
         $mood->customer_id = \Auth::user()->id;
 
         $mood->save();
 
-        if($data['images']){
+        if ($data['images']) {
 
             $mood->images()->sync($data['images']);
 

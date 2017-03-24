@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class FriendDetail extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -23,8 +23,8 @@ class FriendDetail extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $customer = Customer::whereId($data['id'])->whereHas('friends',function($query){
-            $query->where('friend_id',\Auth::user()->id);
+        $customer = Customer::whereId($data['id'])->whereHas('friends', function ($query) {
+            $query->where('friend_id', \Auth::user()->id);
         })->first();
 
         return $customer;

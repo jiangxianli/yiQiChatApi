@@ -25,7 +25,8 @@ use App\Http\Requests\Friend\SearchRequest;
 class MessageController extends Controller
 {
 
-    public function sendTextMsg(Request $request){
+    public function sendTextMsg(Request $request)
+    {
 
         $job = new SendTextMsg($request);
 
@@ -33,7 +34,8 @@ class MessageController extends Controller
 
     }
 
-    public function receiveMsg($request){
+    public function receiveMsg($request)
+    {
 
         $job = new ReceivetMsg($request);
 
@@ -42,44 +44,48 @@ class MessageController extends Controller
 
     }
 
-    public function getMessageList(Request $request){
+    public function getMessageList(Request $request)
+    {
 
         $job = new MsgList($request);
 
         $messages = $this->dispatch($job);
 
-        return $this->response()->collection($messages,new MessageTransformer());
+        return $this->response()->collection($messages, new MessageTransformer());
 
     }
 
 
-    public function unreadMsgList(Request $request){
+    public function unreadMsgList(Request $request)
+    {
 
         $job = new unreadMsgList($request);
 
         $messages = $this->dispatch($job);
 
-        return $this->response()->collection($messages,new MessageTransformer());
+        return $this->response()->collection($messages, new MessageTransformer());
 
     }
 
-    public function getCustomerUnreadMsg(Request $request){
+    public function getCustomerUnreadMsg(Request $request)
+    {
 
         $job = new getCustomerUnreadMsg($request);
 
         $messages = $this->dispatch($job);
 
-        return $this->response()->collection($messages,new MessageTransformer());
+        return $this->response()->collection($messages, new MessageTransformer());
 
     }
 
-    public function getTotalUnreadNum(Request $request){
+    public function getTotalUnreadNum(Request $request)
+    {
 
         $job = new GetTotalUnreadNum($request);
 
         $count = $this->dispatch($job);
 
-        return $this->response()->array(['data'=>$count]);
+        return $this->response()->array(['data' => $count]);
     }
 
 }

@@ -23,8 +23,5 @@ $api->group(['prefix' => 'friend'], function ($api) {
     });
 
 
-
-
-
 });
 

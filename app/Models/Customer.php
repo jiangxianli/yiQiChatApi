@@ -16,30 +16,35 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
     protected $table = 'customers';
 
-    public function friends(){
+    public function friends()
+    {
 
-        return $this->hasMany('App\Models\Friend','owner_id','id')->where('is_received',true);
+        return $this->hasMany('App\Models\Friend', 'owner_id', 'id')->where('is_received', true);
     }
 
 
-    public function fromMsg(){
+    public function fromMsg()
+    {
 
-        return $this->hasMany('App\Models\Message','from','id');
+        return $this->hasMany('App\Models\Message', 'from', 'id');
     }
 
-    public function toMsg(){
+    public function toMsg()
+    {
 
-        return $this->hasMany('App\Models\Message','to','id');
+        return $this->hasMany('App\Models\Message', 'to', 'id');
     }
 
-    public function image(){
+    public function image()
+    {
 
-        return $this->belongsTo('App\Models\Image','image_id');
+        return $this->belongsTo('App\Models\Image', 'image_id');
     }
 
 
-    public function qrcodeImage(){
+    public function qrcodeImage()
+    {
 
-        return $this->belongsTo('App\Models\Image','qrcode');
+        return $this->belongsTo('App\Models\Image', 'qrcode');
     }
 }

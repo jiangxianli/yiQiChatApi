@@ -14,7 +14,7 @@ class AddUuidForCustomersTable extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
 
-            $table->string('uuid',40)->default('');
+            $table->string('uuid', 40)->default('');
 
         });
     }

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class Praise extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -25,15 +25,15 @@ class Praise extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $mood = Mood::where('hidden',false)->where('u_num',$data['u_num'])->first();
+        $mood = Mood::where('hidden', false)->where('u_num', $data['u_num'])->first();
 
-        if($mood){
+        if ($mood) {
 
             $praise = new MoodPraise();
 
             $praise->customer_id = \Auth::user()->id;
-            $praise->mood_id = $mood->id;
-            $praise->ip = $this->request->getClientIp();
+            $praise->mood_id     = $mood->id;
+            $praise->ip          = $this->request->getClientIp();
 
             $praise->save();
 

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class GetComment extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -23,11 +23,11 @@ class GetComment extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $comments = MoodComment::with('sons.customer.image','father.customer')->whereHas('mood',function($query) use ($data){
+        $comments = MoodComment::with('sons.customer.image', 'father.customer')->whereHas('mood', function ($query) use ($data) {
 
-            $query->where('u_num',$data['u_num']);
+            $query->where('u_num', $data['u_num']);
 
-        })->orderBy('created_at','asc')->get();
+        })->orderBy('created_at', 'asc')->get();
 
         return $comments;
 

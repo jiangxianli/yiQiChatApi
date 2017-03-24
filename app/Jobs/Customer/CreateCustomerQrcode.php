@@ -10,7 +10,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class CreateCustomerQrcode extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -26,33 +26,32 @@ class CreateCustomerQrcode extends Job implements SelfHandling
 
         $customer = \Auth::user();
 
-        if($customer){
+        if ($customer) {
 
-            if(!$customer->qrcode){
+            if (!$customer->qrcode) {
 
-                $qrcode_name = time().str_random(10).'.png';
-                $qrcode_dir =  $_SERVER['DOCUMENT_ROOT'].'/uploads/qrCode/';
+                $qrcode_name = time() . str_random(10) . '.png';
+                $qrcode_dir  = $_SERVER['DOCUMENT_ROOT'] . '/uploads/qrCode/';
 
-                $url = env('WAP_DOMAIN').'/#/'.$customer->uuid.'/detail';
+                $url = env('WAP_DOMAIN') . '/#/' . $customer->uuid . '/detail';
 
-                if(!file_exists($qrcode_dir)){
+                if (!file_exists($qrcode_dir)) {
 
-                    mkdir($qrcode_dir,0777);
+                    mkdir($qrcode_dir, 0777);
                 }
 
 
-
-                \QrCode::format('png')->size(400)->margin(0.2)->color(40,40,40)->errorCorrection('Q')->generate($url,$qrcode_dir.$qrcode_name);
+                \QrCode::format('png')->size(400)->margin(0.2)->color(40, 40, 40)->errorCorrection('Q')->generate($url, $qrcode_dir . $qrcode_name);
 
                 \DB::beginTransaction();
 
-                try{
+                try {
                     $image_data = [
-                        'name' => $qrcode_name,
-                        'alt'   =>  '',
-                        'url'   => '/uploads/qrCode/'.$qrcode_name,
-                        'path' => $qrcode_dir.$qrcode_name,
-                        'extension'=>'png'
+                        'name'      => $qrcode_name,
+                        'alt'       => '',
+                        'url'       => '/uploads/qrCode/' . $qrcode_name,
+                        'path'      => $qrcode_dir . $qrcode_name,
+                        'extension' => 'png'
                     ];
 
                     $image = new Image();
@@ -64,7 +63,7 @@ class CreateCustomerQrcode extends Job implements SelfHandling
 
                     \DB::commit();
 
-                }catch (\Exception $e){
+                } catch (\Exception $e) {
 
                     \DB::rollBack();
                 }

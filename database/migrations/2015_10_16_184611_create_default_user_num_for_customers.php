@@ -14,9 +14,9 @@ class CreateDefaultUserNumForCustomers extends Migration
     {
         $customers = \App\Models\Customer::all();
 
-        foreach($customers as $customer){
+        foreach ($customers as $customer) {
 
-            $customer->user_num = 'iqc_'.time().rand(10000,99999);
+            $customer->user_num = 'iqc_' . time() . rand(10000, 99999);
             $customer->save();
         }
     }

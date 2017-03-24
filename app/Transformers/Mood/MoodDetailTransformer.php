@@ -24,24 +24,25 @@ class MoodDetailTransformer extends TransformerAbstract
 
         $customer = $transform->customer;
         return [
-            'id' => $transform->id,
-            'u_num' => $transform->u_num,
-            'praise_num' => $transform->praise_num,
-            'comment_num' => $transform->comments->count(),
-            'image_url' => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
-            'content' => $transform->content,
-            'location' => $transform->location,
-            'images' => self::getImageList($transform->images),
-            'created_at' => $transform->created_at,
-            'is_praised' => $transform->authPraise->count() > 0 ,
-            'customer_name' => AppHelper::getRemark($customer,null),
+            'id'            => $transform->id,
+            'u_num'         => $transform->u_num,
+            'praise_num'    => $transform->praise_num,
+            'comment_num'   => $transform->comments->count(),
+            'image_url'     => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
+            'content'       => $transform->content,
+            'location'      => $transform->location,
+            'images'        => self::getImageList($transform->images),
+            'created_at'    => $transform->created_at,
+            'is_praised'    => $transform->authPraise->count() > 0,
+            'customer_name' => AppHelper::getRemark($customer, null),
             'customer_uuid' => $customer->uuid
-         ];
+        ];
     }
 
-    public static  function getImageList($images){
+    public static function getImageList($images)
+    {
 
-        foreach($images as $key => $image){
+        foreach ($images as $key => $image) {
 
             $images[$key]['url'] = AppHelper::imgSrc($images[$key]['url']);
         }

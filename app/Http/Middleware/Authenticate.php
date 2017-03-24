@@ -19,7 +19,7 @@ class Authenticate
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
+     * @param  Guard $auth
      * @return void
      */
     public function __construct(Guard $auth)
@@ -30,8 +30,8 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -40,7 +40,7 @@ class Authenticate
         if (!$this->auth->check()) {
             if ($request->ajax()) {
 
-                throw new UnauthorizedHttpException(null,'您还没有登录或登录已失效！',null,401);
+                throw new UnauthorizedHttpException(null, '您还没有登录或登录已失效！', null, 401);
 //                return response('您还没有登录！', 401);
             } else {
                 return redirect()->route('merchant.login');

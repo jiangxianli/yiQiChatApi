@@ -34,7 +34,8 @@ class MoodCommentTransformer extends TransformerAbstract
     }
 
 
-    public static function getComment($comment){
+    public static function getComment($comment)
+    {
 
         $customer = $comment->customer;
 
@@ -42,17 +43,17 @@ class MoodCommentTransformer extends TransformerAbstract
 
         return [
 
-            'id' => $comment->id,
-            'image_url' => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
-            'content' => $comment->content,
-            'ip' => $comment->id,
-            'remark' => AppHelper::getRemark($customer,null),
+            'id'            => $comment->id,
+            'image_url'     => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
+            'content'       => $comment->content,
+            'ip'            => $comment->id,
+            'remark'        => AppHelper::getRemark($customer, null),
             'customer_uuid' => $customer->uuid,
-            'father_id' => $comment->father_id,
-            'father_uuid' => $father ? $father->customer->uuid : '',
-            'father_remark' => $father ? AppHelper::getRemark($father->customer,null) : '',
-            'son_comments' => [],
-            'created_at' => $comment->created_at
+            'father_id'     => $comment->father_id,
+            'father_uuid'   => $father ? $father->customer->uuid : '',
+            'father_remark' => $father ? AppHelper::getRemark($father->customer, null) : '',
+            'son_comments'  => [],
+            'created_at'    => $comment->created_at
         ];
     }
 }

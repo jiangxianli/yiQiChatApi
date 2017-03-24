@@ -22,12 +22,12 @@ class FriendTransformer extends TransformerAbstract
     {
         $customer = $transform->from;
         return [
-             'uuid' => $customer->uuid,
-            'from' => $transform->from,
+            'uuid'           => $customer->uuid,
+            'from'           => $transform->from,
             'from_image_url' => $transform->from && $transform->from->image ? AppHelper::imgSrc($transform->from->image->url) : '/assets/images/touxiang.png',
-            'remark' => $transform->remark,
-            'is_received' => $transform->is_received,
-            'type'  => $transform->type
-         ];
+            'remark'         => $transform->remark,
+            'is_received'    => $transform->is_received,
+            'type'           => $transform->type
+        ];
     }
 }

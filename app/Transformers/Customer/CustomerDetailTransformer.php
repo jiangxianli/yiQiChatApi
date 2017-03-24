@@ -21,15 +21,15 @@ class CustomerDetailTransformer extends TransformerAbstract
     public function transform(Customer $transform)
     {
         $is_friend = false;
-        $friend = null;
+        $friend    = null;
 
-        if(\Auth::check()){
+        if (\Auth::check()) {
 
             $customer = \Auth::user();
 
-            $friend = Friend::where('owner_id',$customer->id)->where('friend_id',$transform->id)->where('is_received',true)->first();
+            $friend = Friend::where('owner_id', $customer->id)->where('friend_id', $transform->id)->where('is_received', true)->first();
 
-            if($friend){
+            if ($friend) {
 
                 $is_friend = true;
             }
@@ -37,15 +37,15 @@ class CustomerDetailTransformer extends TransformerAbstract
 
         $image = $transform->image;
         return [
-            'id' => $transform->id,
+            'id'               => $transform->id,
             'easemob_username' => $transform->easemob_username,
-            'image_url' => $image ? AppHelper::imgSrc($image->url) : '/assets/images/touxiang.png',
-            'uuid' => $transform->uuid,
-            'user_name' => $transform->user_name,
-            'user_num' => $transform->user_num,
-            'address'=>json_decode($transform->address),
-            'is_friend' => $is_friend,
-            'remark' => AppHelper::getRemark($transform,$friend)
-         ];
+            'image_url'        => $image ? AppHelper::imgSrc($image->url) : '/assets/images/touxiang.png',
+            'uuid'             => $transform->uuid,
+            'user_name'        => $transform->user_name,
+            'user_num'         => $transform->user_num,
+            'address'          => json_decode($transform->address),
+            'is_friend'        => $is_friend,
+            'remark'           => AppHelper::getRemark($transform, $friend)
+        ];
     }
 }

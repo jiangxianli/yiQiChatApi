@@ -12,7 +12,7 @@ use App\Helpers\EasemobHelper;
 
 class CustomerRegister extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -34,18 +34,18 @@ class CustomerRegister extends Job implements SelfHandling
 
         $customer->easemob_username = $data['account'];
 
-        $customer->easemob_password = rand(1000,9999).rand(1000,9999);
+        $customer->easemob_password = rand(1000, 9999) . rand(1000, 9999);
 
         $customer->uuid = AppHelper::uuid();
 
-        $customer->user_num = 'iqc_'.time().rand(10000,99999);
+        $customer->user_num = 'iqc_' . time() . rand(10000, 99999);
 
-        $system = Customer::where('is_system',true)->first();
+        $system = Customer::where('is_system', true)->first();
 
-        EasemobHelper::registerEasemobUser($customer->easemob_username,$customer->easemob_password);
+        EasemobHelper::registerEasemobUser($customer->easemob_username, $customer->easemob_password);
 
-        EasemobHelper::addFriend($system->easemob_username,$customer->easemob_username);
-        EasemobHelper::addFriend($customer->easemob_username,$system->easemob_username);
+        EasemobHelper::addFriend($system->easemob_username, $customer->easemob_username);
+        EasemobHelper::addFriend($customer->easemob_username, $system->easemob_username);
 
         $customer->save();
 

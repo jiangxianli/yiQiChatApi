@@ -19,26 +19,26 @@ class CustomerAuthTransformer extends TransformerAbstract
 
     public function transform(Customer $transform)
     {
-        $image = $transform->image;
+        $image  = $transform->image;
         $qrcode = $transform->qrcodeImage;
 
         return [
-            'uuid' => $transform->uuid,
-            'user_num' => $transform->user_num,
-            'id' => $transform->id,
-            'mobile' => $transform->mobile,
-            'email'  => $transform->email,
+            'uuid'             => $transform->uuid,
+            'user_num'         => $transform->user_num,
+            'id'               => $transform->id,
+            'mobile'           => $transform->mobile,
+            'email'            => $transform->email,
             'easemob_username' => $transform->easemob_username,
             'easemob_password' => $transform->easemob_password,
-            'image_url' => $image ? AppHelper::imgSrc($image->url) : '/assets/images/touxiang.png',
-            'lng' => $transform->lng,
-            'lat' => $transform->lat,
-            'intro' => $transform->intro,
-            'sex' => $transform->sex,
-            'user_name' => $transform->user_name,
-            'qrcode' => $qrcode ? AppHelper::imgSrc($qrcode->url) : null ,
-            'address'=>json_decode($transform->address),
-            'remark' => AppHelper::getRemark($transform,null)
-         ];
+            'image_url'        => $image ? AppHelper::imgSrc($image->url) : '/assets/images/touxiang.png',
+            'lng'              => $transform->lng,
+            'lat'              => $transform->lat,
+            'intro'            => $transform->intro,
+            'sex'              => $transform->sex,
+            'user_name'        => $transform->user_name,
+            'qrcode'           => $qrcode ? AppHelper::imgSrc($qrcode->url) : null,
+            'address'          => json_decode($transform->address),
+            'remark'           => AppHelper::getRemark($transform, null)
+        ];
     }
 }

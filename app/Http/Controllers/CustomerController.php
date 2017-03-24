@@ -31,7 +31,8 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
 
-    public function postRegister(RegisterRequest $request){
+    public function postRegister(RegisterRequest $request)
+    {
 
         $job = new CustomerRegister($request);
 
@@ -42,7 +43,8 @@ class CustomerController extends Controller
         return $this->response()->item($customer, new CustomerAuthTransformer())->addMeta('token', $token);
     }
 
-    public function postLogin(LoginRequest $request){
+    public function postLogin(LoginRequest $request)
+    {
 
         $job = new CustomerLogin($request);
 
@@ -54,7 +56,8 @@ class CustomerController extends Controller
 
     }
 
-    public function postGetAuthInfo(Request $request){
+    public function postGetAuthInfo(Request $request)
+    {
 
         \Log::info(\Auth::check());
 
@@ -62,7 +65,7 @@ class CustomerController extends Controller
 
         $point = AppHelper::ipToPoint($request->getClientIp());
 
-        if($point){
+        if ($point) {
 
             $customer->lat = $point['y'];
             $customer->lng = $point['x'];
@@ -75,7 +78,8 @@ class CustomerController extends Controller
 
     }
 
-    public function postFindById(Request $request){
+    public function postFindById(Request $request)
+    {
 
         $job = new CustomerFind($request);
 
@@ -87,7 +91,8 @@ class CustomerController extends Controller
     }
 
     //设置定位信息
-    public function setLocation(Request $request){
+    public function setLocation(Request $request)
+    {
 
         $job = new SetCustomerLocation($request);
 
@@ -95,7 +100,8 @@ class CustomerController extends Controller
 
     }
 
-    public function getNearbyCustomers(Request $request){
+    public function getNearbyCustomers(Request $request)
+    {
 
         $job = new NearbyCustomers($request);
 
@@ -105,7 +111,8 @@ class CustomerController extends Controller
 
     }
 
-    public function getDetail(Request $request){
+    public function getDetail(Request $request)
+    {
 
         $job = new GetCustomerDetail($request);
 
@@ -115,7 +122,8 @@ class CustomerController extends Controller
 
     }
 
-    public function createQrcode(Request $request){
+    public function createQrcode(Request $request)
+    {
 
         $job = new CreateCustomerQrcode($request);
 
@@ -126,7 +134,8 @@ class CustomerController extends Controller
 
     }
 
-    public function setAddress(Request $request){
+    public function setAddress(Request $request)
+    {
 
         $job = new SetAddress($request);
 
@@ -136,7 +145,8 @@ class CustomerController extends Controller
 
     }
 
-    public function setUserName(Request $request){
+    public function setUserName(Request $request)
+    {
 
         $job = new SetUserName($request);
 
@@ -145,7 +155,8 @@ class CustomerController extends Controller
         return $this->response()->item($customer, new CustomerAuthTransformer());
     }
 
-    public function setIntro(Request $request){
+    public function setIntro(Request $request)
+    {
 
         $job = new SetIntro($request);
 
@@ -155,7 +166,8 @@ class CustomerController extends Controller
 
     }
 
-    public function setSex(Request $request){
+    public function setSex(Request $request)
+    {
 
         $job = new SetSex($request);
 
@@ -165,17 +177,18 @@ class CustomerController extends Controller
 
     }
 
-    public function uploadCustomerImage(Request $request){
+    public function uploadCustomerImage(Request $request)
+    {
 
         $job = new ImageUpload($request);
 
         $image = $this->dispatch($job);
 
-        $customer = \Auth::user();
+        $customer           = \Auth::user();
         $customer->image_id = $image->id;
         $customer->save();
 
-        return $this->response()->item($image,new ImageTransformer());
+        return $this->response()->item($image, new ImageTransformer());
     }
 
 }

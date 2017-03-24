@@ -10,7 +10,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class FriendApplyList extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -24,7 +24,7 @@ class FriendApplyList extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $applies = Friend::where('friend_id',\Auth::user()->id)->where('type','search')->orderBy('created_at','desc')->get();
+        $applies = Friend::where('friend_id', \Auth::user()->id)->where('type', 'search')->orderBy('created_at', 'desc')->get();
 
         return $applies;
     }

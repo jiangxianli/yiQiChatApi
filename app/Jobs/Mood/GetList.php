@@ -10,7 +10,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class GetList extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -24,7 +24,7 @@ class GetList extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $moods = Mood::orderBy('created_at','desc')->get();
+        $moods = Mood::orderBy('created_at', 'desc')->get();
 
         return $moods;
 

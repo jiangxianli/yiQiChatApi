@@ -13,7 +13,7 @@ class SetRemark extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -27,9 +27,9 @@ class SetRemark extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $friend = Friend::where('owner_id',\Auth::user()->id)->where('friend_id',$data['friend_id'])->first();
+        $friend = Friend::where('owner_id', \Auth::user()->id)->where('friend_id', $data['friend_id'])->first();
 
-        if($friend){
+        if ($friend) {
 
             $friend->remark = $data['remark'];
 

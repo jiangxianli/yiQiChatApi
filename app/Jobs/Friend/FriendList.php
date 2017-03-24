@@ -14,7 +14,6 @@ class FriendList extends Job implements SelfHandling
     use DispatchesJobs;
 
 
-
     public function __construct()
     {
 
@@ -25,9 +24,9 @@ class FriendList extends Job implements SelfHandling
     {
 
 
-        $friends = Customer::whereHas('friends',function($query){
+        $friends = Customer::whereHas('friends', function ($query) {
 
-            $query->where('friend_id',\Auth::user()->id);
+            $query->where('friend_id', \Auth::user()->id);
 
         })->get();
 

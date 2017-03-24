@@ -13,9 +13,9 @@ class ImageUpload extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
-    public $ext = ['jpg','png','jpeg','gif'];
+    public $ext = ['jpg', 'png', 'jpeg', 'gif'];
 
 
     public function __construct(Request $request)
@@ -33,56 +33,55 @@ class ImageUpload extends Job implements SelfHandling
         $file = $this->request->file('file');
 
         //检查文件是否存在
-        if($file && $file->isValid()){
+        if ($file && $file->isValid()) {
 
             $file_extension = $file->getClientOriginalExtension();
 
-            if(!in_array(strtolower($file_extension),$this->ext)){
+            if (!in_array(strtolower($file_extension), $this->ext)) {
 
-                self::throwException('10006',trans('error.10006',['ext'=>implode(',',$this->ext)]));
+                self::throwException('10006', trans('error.10006', ['ext' => implode(',', $this->ext)]));
 //                throw new ResourceException('只允许上传'.implode(',',$this->ext).'格式后缀的图片!',null,null,[],1);
             }
 
             $upload_dir = '/uploads/Customer/';
 
             //文件保存目录
-            $file_dir = public_path().$upload_dir;
+            $file_dir = public_path() . $upload_dir;
 
             //文件保存名称
-            $file_name = time().str_random(8).'.'.$file_extension;
+            $file_name = time() . str_random(8) . '.' . $file_extension;
 
             //保存文件
-            $file->move($file_dir,$file_name);
+            $file->move($file_dir, $file_name);
 
-            $imageUtil = \ImageUtil::make($file_dir.$file_name);
+            $imageUtil = \ImageUtil::make($file_dir . $file_name);
 
             //同时调整宽高
-            $imageUtil = $imageUtil->fit(300,300);
+            $imageUtil = $imageUtil->fit(300, 300);
 
             $imageUtil = $imageUtil->save();
 
             //保存图片数据
             $image_data = [
-                'name' => $file_name,
-                'alt'   =>  '',
-                'url'   => $upload_dir.$file_name,
-                'path' => $file_dir.$file_name,
-                'extension'=>$file_extension
+                'name'      => $file_name,
+                'alt'       => '',
+                'url'       => $upload_dir . $file_name,
+                'path'      => $file_dir . $file_name,
+                'extension' => $file_extension
             ];
 
-            try{
+            try {
 
                 $image = new Image();
                 $image->fill($image_data);
                 $image->save();
 
 
-
                 return $image;
 
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
 
-                @unlink($file_dir.$file_name);
+                @unlink($file_dir . $file_name);
 
 
                 self::throwException('10007');
@@ -90,8 +89,7 @@ class ImageUpload extends Job implements SelfHandling
 
             }
 
-        }
-        else{
+        } else {
             self::throwException('10008');
 //            throw new ResourceException('上传的图片资源不存在!',null,null,[],1);
         }

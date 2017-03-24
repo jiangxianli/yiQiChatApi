@@ -9,14 +9,16 @@ class Friend extends Model
 {
     protected $table = 'friends';
 
-    public function from(){
+    public function from()
+    {
 
-        return $this->belongsTo('App\Models\Customer','owner_id','id');
+        return $this->belongsTo('App\Models\Customer', 'owner_id', 'id');
     }
 
-    public function to(){
+    public function to()
+    {
 
-        return $this->belongsTo('App\Models\Customer','friend_id','id');
+        return $this->belongsTo('App\Models\Customer', 'friend_id', 'id');
     }
 
 

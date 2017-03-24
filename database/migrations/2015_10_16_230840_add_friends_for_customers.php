@@ -15,12 +15,12 @@ class AddFriendsForCustomers extends Migration
     public function up()
     {
         $customers = \App\Models\Customer::all();
-        $mobile = '13888888888';
+        $mobile    = '13888888888';
 
-        foreach($customers as $customer){
+        foreach ($customers as $customer) {
 
-            EasemobHelper::addFriend($mobile,$customer->easemob_username);
-            EasemobHelper::addFriend($customer->easemob_username,$mobile);
+            EasemobHelper::addFriend($mobile, $customer->easemob_username);
+            EasemobHelper::addFriend($customer->easemob_username, $mobile);
         }
     }
 

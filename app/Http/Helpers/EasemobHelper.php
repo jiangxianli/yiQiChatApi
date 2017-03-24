@@ -4,7 +4,8 @@ namespace App\Http\Helpers;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class EasemobHelper {
+class EasemobHelper
+{
 
     private static $ORG_NAME = '144disk';
     private static $APP_NAME = 'wechat';
@@ -13,7 +14,8 @@ class EasemobHelper {
     private static $CACHE_TOKEN_NAME = 'EasemobCacheToken';
 
 
-    public static function  postRequestWithHeader($url,$header=array(),$body,$method='POST'){
+    public static function postRequestWithHeader($url, $header = array(), $body, $method = 'POST')
+    {
 
         array_push($header, 'Accept:application/json');
         array_push($header, 'Content-Type:application/json');
@@ -22,18 +24,18 @@ class EasemobHelper {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        switch ($method){
+        switch ($method) {
             case "GET" :
                 curl_setopt($ch, CURLOPT_HTTPGET, true);
                 break;
             case "POST":
-                curl_setopt($ch, CURLOPT_POST,true);
+                curl_setopt($ch, CURLOPT_POST, true);
                 break;
             case "PUT" :
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 break;
             case "DELETE":
-                curl_setopt ($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
         }
 
@@ -50,39 +52,40 @@ class EasemobHelper {
         $ret = curl_exec($ch);
         curl_close($ch);
 
-        $data = json_decode($ret,true);
+        $data = json_decode($ret, true);
         return $data;
 
     }
 
 
     //获取管理员token
-    public static  function getAuthToken(){
+    public static function getAuthToken()
+    {
 
-        if($token = \Cache::get(static::$CACHE_TOKEN_NAME)){
+        if ($token = \Cache::get(static::$CACHE_TOKEN_NAME)) {
 
             return $token;
-        }else{
+        } else {
 
-            $url = "https://a1.easemob.com/".static::$ORG_NAME."/".static::$APP_NAME."/token";
+            $url = "https://a1.easemob.com/" . static::$ORG_NAME . "/" . static::$APP_NAME . "/token";
 
             $header = array();
 
             $body = '{
                     "grant_type":"client_credentials",
-                    "client_id":"'.static::$CLIENT_ID.'",
-                    "client_secret":"'.static::$CLIENT_SECRET.'"
+                    "client_id":"' . static::$CLIENT_ID . '",
+                    "client_secret":"' . static::$CLIENT_SECRET . '"
                 }';
 
-            $data = self::postRequestWithHeader($url,$header,$body);
+            $data = self::postRequestWithHeader($url, $header, $body);
 
-            if($data && array_key_exists('access_token',$data)){
+            if ($data && array_key_exists('access_token', $data)) {
 
-                \Cache::pull(static::$CACHE_TOKEN_NAME,$data['access_token'],60*24*5);
+                \Cache::pull(static::$CACHE_TOKEN_NAME, $data['access_token'], 60 * 24 * 5);
 
-                return $data['access_token'] ;
+                return $data['access_token'];
 
-            }else{
+            } else {
 
                 \Log::error('----------------获取环信管理员token失败---------------');
                 return null;
@@ -94,41 +97,40 @@ class EasemobHelper {
     }
 
 
+    public static function checkResultCorrect($data)
+    {
 
 
+        if (!$data) {
 
-    public static  function checkResultCorrect($data){
+            self::throwException(null, '接口没有返回信息', 500);
 
+        } else if (array_key_exists('error', $data)) {
 
-        if(!$data){
-
-            self::throwException(null,'接口没有返回信息',500);
-
-        }
-        else if(array_key_exists('error',$data)){
-
-            self::throwException(null,$data['error'],500);
+            self::throwException(null, $data['error'], 500);
         }
 
     }
 
 
-    public static function throwException($code,$message=null,$statusCode=422){
+    public static function throwException($code, $message = null, $statusCode = 422)
+    {
 
-        if(is_null($message)){
+        if (is_null($message)) {
 
-            $message = trans('error.'.$code) ? trans('error.'.$code) : trans('error.undefined') ;
+            $message = trans('error.' . $code) ? trans('error.' . $code) : trans('error.undefined');
 
         }
 
-        throw new HttpException($statusCode,$message,null,[],$code);
+        throw new HttpException($statusCode, $message, null, [], $code);
 
     }
 
 
-    public static function formatUserInfo($data){
+    public static function formatUserInfo($data)
+    {
 
-        if($data && array_key_exists('entities',$data)){
+        if ($data && array_key_exists('entities', $data)) {
 
             return $data['entities'][0];
 

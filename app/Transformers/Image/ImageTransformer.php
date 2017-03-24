@@ -21,9 +21,9 @@ class ImageTransformer extends TransformerAbstract
     public function transform(Image $transform)
     {
         return [
-            'id' => $transform->id,
-            'url' => AppHelper::imgSrc($transform->url),
-            'extension'  => $transform->extension
-         ];
+            'id'        => $transform->id,
+            'url'       => AppHelper::imgSrc($transform->url),
+            'extension' => $transform->extension
+        ];
     }
 }

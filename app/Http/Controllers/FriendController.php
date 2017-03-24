@@ -26,13 +26,14 @@ class FriendController extends Controller
      * @param SearchRequest $request
      * @return \Dingo\Api\Http\Response
      */
-    public function postSearch(SearchRequest $request){
+    public function postSearch(SearchRequest $request)
+    {
 
         $job = new FriendSearch($request);
 
         $customer = $this->dispatch($job);
 
-        return $this->response()->item($customer,new CustomerTransformer());
+        return $this->response()->item($customer, new CustomerTransformer());
 
     }
 
@@ -41,7 +42,8 @@ class FriendController extends Controller
      * 申请加好友
      * @param Request $request
      */
-    public function postApply(Request $request){
+    public function postApply(Request $request)
+    {
 
         $job = new FriendApply($request);
 
@@ -52,7 +54,8 @@ class FriendController extends Controller
      * 同意加好友
      * @param Request $request
      */
-    public function postAgree(Request $request){
+    public function postAgree(Request $request)
+    {
 
         $job = new FriendAgree($request);
 
@@ -65,48 +68,53 @@ class FriendController extends Controller
      * @param Request $request
      * @return \Dingo\Api\Http\Response
      */
-    public function getApplyList(Request $request){
+    public function getApplyList(Request $request)
+    {
 
         $job = new FriendApplyList($request);
 
-        $applies  = $this->dispatch($job);
+        $applies = $this->dispatch($job);
 
-        return $this->response()->collection($applies,new FriendTransformer());
+        return $this->response()->collection($applies, new FriendTransformer());
     }
 
-    public function getFriendList(){
+    public function getFriendList()
+    {
 
         $job = new FriendList();
 
-        $friends  = $this->dispatch($job);
+        $friends = $this->dispatch($job);
 
-        return $this->response()->collection($friends,new CustomerTransformer());
+        return $this->response()->collection($friends, new CustomerTransformer());
 
     }
 
-    public function getDetail(Request $request){
+    public function getDetail(Request $request)
+    {
 
         $job = new FriendDetail($request);
 
         $customer = $this->dispatch($job);
 
-        return $this->response()->item($customer,new CustomerTransformer());
+        return $this->response()->item($customer, new CustomerTransformer());
     }
 
-    public function setRemark(Request $request){
+    public function setRemark(Request $request)
+    {
 
         $job = new SetRemark($request);
 
         $this->dispatch($job);
     }
 
-    public function findFriend(Request $request){
+    public function findFriend(Request $request)
+    {
 
         $job = new FindFriend($request);
 
-        $friend  = $this->dispatch($job);
+        $friend = $this->dispatch($job);
 
-        return $this->response()->item($friend,new FriendDetailTransformer());
+        return $this->response()->item($friend, new FriendDetailTransformer());
 
     }
 

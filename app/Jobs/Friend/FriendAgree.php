@@ -13,7 +13,7 @@ class FriendAgree extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,15 +28,15 @@ class FriendAgree extends Job implements SelfHandling
         $data = $this->request->all();
 
         //别人加我为好友
-        $customer = Customer::where('easemob_username',$data['to'])->first();
+        $customer = Customer::where('easemob_username', $data['to'])->first();
 
-        if($customer){
+        if ($customer) {
             //别人加我
-            $owner = Friend::where('owner_id',$customer->id)->where('friend_id',\Auth::user()->id)->first();
+            $owner = Friend::where('owner_id', $customer->id)->where('friend_id', \Auth::user()->id)->first();
             //我加别人
-            $friend = Friend::where('friend_id',$customer->id)->where('owner_id',\Auth::user()->id)->first();
+            $friend = Friend::where('friend_id', $customer->id)->where('owner_id', \Auth::user()->id)->first();
 
-            if(!$friend){
+            if (!$friend) {
 
                 $friend = new Friend();
 
@@ -52,7 +52,7 @@ class FriendAgree extends Job implements SelfHandling
 
                 $friend->save();
 
-                if($owner){
+                if ($owner) {
 
                     $owner->is_received = true;
 
@@ -65,9 +65,6 @@ class FriendAgree extends Job implements SelfHandling
             return $this->dispatch(new FriendApplyList($this->request));
 
         }
-
-
-
 
 
     }

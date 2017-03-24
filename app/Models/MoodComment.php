@@ -9,28 +9,30 @@ class MoodComment extends Model
 {
     protected $table = 'mood_comments';
 
-    public function customer(){
+    public function customer()
+    {
 
-        return $this->belongsTo('App\Models\Customer','customer_id');
+        return $this->belongsTo('App\Models\Customer', 'customer_id');
 
     }
 
-    public function mood(){
+    public function mood()
+    {
 
-        return $this->belongsTo('App\Models\Mood','mood_id');
+        return $this->belongsTo('App\Models\Mood', 'mood_id');
     }
 
-    public function father(){
+    public function father()
+    {
 
-        return $this->belongsTo('App\Models\MoodComment','father_id');
+        return $this->belongsTo('App\Models\MoodComment', 'father_id');
     }
 
-    public function sons(){
+    public function sons()
+    {
 
-        return $this->hasMany('App\Models\MoodComment','father_id');
+        return $this->hasMany('App\Models\MoodComment', 'father_id');
     }
-
-    
 
 
 }

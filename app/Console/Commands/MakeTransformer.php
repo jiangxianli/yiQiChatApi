@@ -34,7 +34,7 @@ class MakeTransformer extends GeneratorCommand
             if (class_exists($name)) {
                 $model = $this->laravel->make($name);
 
-                $table = $model->getConnection()->getTablePrefix() . $model->getTable();
+                $table  = $model->getConnection()->getTablePrefix() . $model->getTable();
                 $schema = $model->getConnection()->getDoctrineSchemaManager($table);
 
                 $columns = $schema->listTableColumns($table);

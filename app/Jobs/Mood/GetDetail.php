@@ -10,7 +10,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class GetDetail extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -24,7 +24,7 @@ class GetDetail extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $mood = Mood::where('hidden',false)->where('u_num',$data['u_num'])->first();
+        $mood = Mood::where('hidden', false)->where('u_num', $data['u_num'])->first();
 
         return $mood;
 

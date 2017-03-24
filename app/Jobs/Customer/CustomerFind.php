@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class CustomerFind extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,6 +28,6 @@ class CustomerFind extends Job implements SelfHandling
 
         return $customer;
 
-        self::throwException('10000') ;
+        self::throwException('10000');
     }
 }

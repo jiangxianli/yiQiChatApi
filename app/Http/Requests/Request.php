@@ -15,7 +15,7 @@ abstract class Request extends FormRequest
      */
     public function createMessages($prefix = '')
     {
-        $rules = $this->rules();
+        $rules    = $this->rules();
         $messages = [];
 
         foreach ($rules as $field => $rule) {
@@ -24,7 +24,7 @@ abstract class Request extends FormRequest
             }
 
             foreach ($rule as $r) {
-                $k = explode(':', $r)[0];
+                $k                           = explode(':', $r)[0];
                 $messages[$field . '.' . $k] = trans($prefix . $field . '.' . $k);
             }
         }
@@ -43,10 +43,10 @@ abstract class Request extends FormRequest
     {
         //todo code
         return [
-            'code' => '40001',
+            'code'    => '40001',
             'message' => $validator->errors()->first(),
-//            'errors' => $validator->errors()->all(),
-//            'status_code' => 422
+            //            'errors' => $validator->errors()->all(),
+            //            'status_code' => 422
         ];
     }
 }

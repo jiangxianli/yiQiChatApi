@@ -10,8 +10,5 @@ $api->group(['prefix' => 'image'], function ($api) {
     });
 
 
-
-
-
 });
 

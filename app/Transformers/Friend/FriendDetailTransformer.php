@@ -22,11 +22,11 @@ class FriendDetailTransformer extends TransformerAbstract
     {
         $customer = $transform->to;
         return [
-            'uuid' => $customer->uuid,
-            'image_url' => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
-            'remark' => $transform->remark,
+            'uuid'        => $customer->uuid,
+            'image_url'   => $customer && $customer->image ? AppHelper::imgSrc($customer->image->url) : '/assets/images/touxiang.png',
+            'remark'      => $transform->remark,
             'is_received' => $transform->is_received,
-            'type'  => $transform->type
-         ];
+            'type'        => $transform->type
+        ];
     }
 }

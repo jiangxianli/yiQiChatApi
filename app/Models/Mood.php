@@ -9,31 +9,35 @@ class Mood extends Model
 {
     protected $table = 'moods';
 
-    protected $fillable = ['content','location','hidden'];
+    protected $fillable = ['content', 'location', 'hidden'];
 
-    public function images(){
+    public function images()
+    {
 
-        return $this->belongsToMany('App\Models\Image','mood_images','mood_id','image_id');
+        return $this->belongsToMany('App\Models\Image', 'mood_images', 'mood_id', 'image_id');
     }
 
-    public function customer(){
+    public function customer()
+    {
 
-        return $this->belongsTo('App\Models\Customer','customer_id','id');
+        return $this->belongsTo('App\Models\Customer', 'customer_id', 'id');
     }
 
-    public function comments(){
+    public function comments()
+    {
 
-        return $this->hasMany('App\Models\MoodComment','mood_id','id');
+        return $this->hasMany('App\Models\MoodComment', 'mood_id', 'id');
     }
 
-    public function authPraise(){
+    public function authPraise()
+    {
 
         $customer_id = 0;
-        if(\Auth::check()){
+        if (\Auth::check()) {
 
             $customer_id = \Auth::user()->id;
         }
-        return $this->hasMany('App\Models\MoodPraise','mood_id','id')->where('customer_id',$customer_id);
+        return $this->hasMany('App\Models\MoodPraise', 'mood_id', 'id')->where('customer_id', $customer_id);
     }
 
 

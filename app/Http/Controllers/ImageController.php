@@ -10,17 +10,18 @@ use Illuminate\Http\Request;
 class ImageController extends Controller
 {
 
-    public function postUpload(Request $request){
+    public function postUpload(Request $request)
+    {
 
         $job = new ImageUpload($request);
 
         $image = $this->dispatch($job);
 
-        $customer = \Auth::user();
+        $customer           = \Auth::user();
         $customer->image_id = $image->id;
         $customer->save();
 
-        return $this->response()->item($image,new ImageTransformer());
+        return $this->response()->item($image, new ImageTransformer());
     }
 
 

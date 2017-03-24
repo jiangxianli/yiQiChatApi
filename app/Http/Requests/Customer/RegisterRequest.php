@@ -24,7 +24,7 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'account' => 'required|cnphone|unique:customers,mobile',
+            'account'  => 'required|cnphone|unique:customers,mobile',
             'password' => 'required'
         ];
     }

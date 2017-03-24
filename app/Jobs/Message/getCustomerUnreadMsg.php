@@ -14,7 +14,7 @@ class getCustomerUnreadMsg extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,15 +28,15 @@ class getCustomerUnreadMsg extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $customer = Customer::where('id',$data['to'])->first();
+        $customer = Customer::where('id', $data['to'])->first();
 
-        if($customer){
+        if ($customer) {
 
-            $messages = Message::where(function($query) use ($customer){
+            $messages = Message::where(function ($query) use ($customer) {
 
-                $query->where('to',\Auth::user()->id)->where('from',$customer->id);
+                $query->where('to', \Auth::user()->id)->where('from', $customer->id);
 
-            })->orderBy('created_at','asc')->where('is_read',false)->get();
+            })->orderBy('created_at', 'asc')->where('is_read', false)->get();
 
             return $messages;
 

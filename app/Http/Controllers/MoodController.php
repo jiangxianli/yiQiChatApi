@@ -41,17 +41,19 @@ use Illuminate\Http\Request;
 class MoodController extends Controller
 {
 
-    public function uploadImage(Request $request){
+    public function uploadImage(Request $request)
+    {
 
         $job = new ImageUpload($request);
 
         $image = $this->dispatch($job);
 
-        return $this->response()->item($image,new ImageTransformer());
+        return $this->response()->item($image, new ImageTransformer());
 
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         $job = new CreateMood($request);
 
@@ -59,18 +61,20 @@ class MoodController extends Controller
     }
 
 
-    public function getList(Request $request){
+    public function getList(Request $request)
+    {
 
         $job = new GetList($request);
 
         $moods = $this->dispatch($job);
 
-        return $this->response()->collection($moods,new MoodDetailTransformer());
+        return $this->response()->collection($moods, new MoodDetailTransformer());
 
 
     }
 
-    public function praiseMood(Request $request){
+    public function praiseMood(Request $request)
+    {
 
         $job = new Praise($request);
 
@@ -78,34 +82,37 @@ class MoodController extends Controller
 
     }
 
-    public function getDetail(Request $request){
+    public function getDetail(Request $request)
+    {
 
         $job = new GetDetail($request);
 
         $mood = $this->dispatch($job);
 
-        return $this->response()->item($mood,new MoodDetailTransformer());
+        return $this->response()->item($mood, new MoodDetailTransformer());
 
     }
 
 
-    public function getComments(Request $request){
+    public function getComments(Request $request)
+    {
 
         $job = new GetComment($request);
 
         $comments = $this->dispatch($job);
 
-        return $this->response()->collection($comments,new MoodCommentTransformer());
+        return $this->response()->collection($comments, new MoodCommentTransformer());
 
     }
 
-    public function createComment(Request $request){
+    public function createComment(Request $request)
+    {
 
         $job = new CreateComment($request);
 
         $comment = $this->dispatch($job);
 
-        return $this->response()->item($comment,new MoodCommentTransformer());
+        return $this->response()->item($comment, new MoodCommentTransformer());
 
     }
 

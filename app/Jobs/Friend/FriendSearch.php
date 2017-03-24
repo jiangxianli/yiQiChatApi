@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class FriendSearch extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -23,7 +23,7 @@ class FriendSearch extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $customer = Customer::whereMobile($data['query'])->orWhere('easemob_username',$data['query'])->first();
+        $customer = Customer::whereMobile($data['query'])->orWhere('easemob_username', $data['query'])->first();
 
         return $customer;
     }

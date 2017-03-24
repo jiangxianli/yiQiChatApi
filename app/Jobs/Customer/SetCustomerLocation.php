@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class SetCustomerLocation extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -23,7 +23,7 @@ class SetCustomerLocation extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        if(\Auth::check()){
+        if (\Auth::check()) {
 
             $customer = \Auth::user();
 

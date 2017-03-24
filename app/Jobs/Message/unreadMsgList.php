@@ -14,7 +14,7 @@ class unreadMsgList extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -29,11 +29,11 @@ class unreadMsgList extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $messages = Message::where(function($query){
+        $messages = Message::where(function ($query) {
 
-            $query->where('from',\Auth::user()->id)->orWhere('to',\Auth::user()->id);
+            $query->where('from', \Auth::user()->id)->orWhere('to', \Auth::user()->id);
 
-        })->orderBy('created_at','desc')->get();
+        })->orderBy('created_at', 'desc')->get();
 
 
         $customer_list = [];
@@ -41,38 +41,34 @@ class unreadMsgList extends Job implements SelfHandling
         $max_count = $messages->count();
         $cur_count = 0;
 
-        while($max_count && $cur_count < $max_count) {
+        while ($max_count && $cur_count < $max_count) {
 
             $message = $messages->get($cur_count);
 
             //我发送的
-            if($message->from == \Auth::user()->id){
+            if ($message->from == \Auth::user()->id) {
 
-                if(in_array($message->to,$customer_list)){
+                if (in_array($message->to, $customer_list)) {
 
-                    $messages->splice($cur_count,1);
+                    $messages->splice($cur_count, 1);
 
+                } else {
+
+                    $cur_count++;
+                    array_push($customer_list, $message->to);
                 }
-                else{
-
-                    $cur_count ++ ;
-                    array_push($customer_list,$message->to);
-                }
 
 
+            } else {
 
-            }
-            else{
+                if (in_array($message->from, $customer_list)) {
 
-                if(in_array($message->from,$customer_list)){
+                    $messages->splice($cur_count, 1);
 
-                    $messages->splice($cur_count,1);
+                } else {
 
-                }
-                else{
-
-                    $cur_count ++ ;
-                    array_push($customer_list,$message->from);
+                    $cur_count++;
+                    array_push($customer_list, $message->from);
                 }
 
             }

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class CustomerLogin extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -25,21 +25,19 @@ class CustomerLogin extends Job implements SelfHandling
 
         $customer = Customer::whereMobile($data['account'])->first();
 
-        if($customer){
+        if ($customer) {
 
-            if(!\Hash::check($data['password'],$customer->encrypted_password)){
+            if (!\Hash::check($data['password'], $customer->encrypted_password)) {
 
-               self::throwException('10001') ;
+                self::throwException('10001');
 
-            }
-
-            else{
+            } else {
 
                 return $customer;
             }
 
         }
 
-        self::throwException('10000') ;
+        self::throwException('10000');
     }
 }

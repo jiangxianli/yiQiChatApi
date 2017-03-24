@@ -14,7 +14,7 @@ class MsgList extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -28,21 +28,21 @@ class MsgList extends Job implements SelfHandling
 
         $data = $this->request->all();
 
-        $customer = Customer::where('id',$data['to'])->first();
+        $customer = Customer::where('id', $data['to'])->first();
 
-        if($customer){
+        if ($customer) {
 
-            $messages = Message::where(function($query) use ($customer){
+            $messages = Message::where(function ($query) use ($customer) {
 
-                $query->where('from',\Auth::user()->id)->where('to',$customer->id);
-            })->orWhere(function($query) use ($customer){
+                $query->where('from', \Auth::user()->id)->where('to', $customer->id);
+            })->orWhere(function ($query) use ($customer) {
 
-                $query->where('to',\Auth::user()->id)->where('from',$customer->id);
-            })->orderBy('created_at','asc')->get();
+                $query->where('to', \Auth::user()->id)->where('from', $customer->id);
+            })->orderBy('created_at', 'asc')->get();
 
-            foreach($messages as $key => $message){
+            foreach ($messages as $key => $message) {
 
-                if(!$message->is_read &&  $message->to == \Auth::user()->id){
+                if (!$message->is_read && $message->to == \Auth::user()->id) {
 
                     $message->is_read = true;
                     $message->save();

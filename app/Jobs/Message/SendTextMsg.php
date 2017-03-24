@@ -14,7 +14,7 @@ class SendTextMsg extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -29,21 +29,21 @@ class SendTextMsg extends Job implements SelfHandling
         $data = $this->request->all();
         \Log::info($data);
 
-        $customer = Customer::where('id',$data['to'])->first();
+        $customer = Customer::where('id', $data['to'])->first();
 
-        if($customer){
+        if ($customer) {
 
             $message = new Message();
 
-            $message->to = $customer->id;
+            $message->to      = $customer->id;
             $message->to_name = $customer->easemob_username;
 
-            $message->from = \Auth::user()->id;
+            $message->from      = \Auth::user()->id;
             $message->from_name = \Auth::user()->easemob_username;
 
             $message->is_received = false;
-            $message->is_deleted = false;
-            $message->is_remove = false;
+            $message->is_deleted  = false;
+            $message->is_remove   = false;
 
             $message->content = $data['content'];
 
@@ -54,8 +54,6 @@ class SendTextMsg extends Job implements SelfHandling
             $message->save();
 
         }
-
-
 
 
     }

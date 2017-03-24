@@ -19,8 +19,5 @@ $api->group(['prefix' => 'message'], function ($api) {
     });
 
 
-
-
-
 });
 

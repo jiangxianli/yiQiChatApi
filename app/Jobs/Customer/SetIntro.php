@@ -9,7 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class SetIntro extends Job implements SelfHandling
 {
-    public $request ;
+    public $request;
 
 
     public function __construct(Request $request)
@@ -25,7 +25,7 @@ class SetIntro extends Job implements SelfHandling
 
         $customer = \Auth::user();
 
-        if($customer){
+        if ($customer) {
 
             $customer->intro = $data['intro'];
 
