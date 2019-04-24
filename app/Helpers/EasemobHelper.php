@@ -23,7 +23,7 @@ class EasemobHelper
      *
      * EasemobHelper constructor.
      */
-    public function __construct()
+    public static function initConfig()
     {
         self::$org_name = config('easemob.org_name');
         self::$app_name = config('easemob.app_name');
@@ -93,6 +93,8 @@ class EasemobHelper
      */
     public static function getEasemobAuthToken()
     {
+        self::initConfig();
+
         if ($token = \Cache::get(self::$token_name)) {
             return $token;
         } else {
@@ -128,6 +130,8 @@ class EasemobHelper
      */
     public static function sendTextMsg($username)
     {
+        self::initConfig();
+
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
@@ -175,6 +179,8 @@ class EasemobHelper
      */
     public static function addFriend($owner_username, $friend_username)
     {
+        self::initConfig();
+
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
@@ -208,6 +214,8 @@ class EasemobHelper
      */
     public static function registerEasemobUser($username, $password)
     {
+        self::initConfig();
+
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
@@ -232,8 +240,8 @@ class EasemobHelper
                 return $data['entities'][0];
             }
         } else {
-            return null;
             \Log::error('-----------没有TOKEN-------------');
+            return null;
         }
     }
 
