@@ -12,11 +12,24 @@ namespace App\Helpers;
  */
 class EasemobHelper
 {
-    public static $org_name = '144disk';
-    public static $app_name = 'wechat';
-    public static $client_id = 'YXA6UojoAGNHEeWZjMGm6zwk3Q';
-    public static $client_secret = 'YXA6vmqu0_29BcURpLdYGRV93d2S8WI';
+    public static $org_name;
+    public static $app_name;
+    public static $client_id;
+    public static $client_secret;
     public static $token_name = 'EasemobToken';
+
+    /**
+     * 构造函数
+     *
+     * EasemobHelper constructor.
+     */
+    public function __construct()
+    {
+        self::$org_name = config('easemob.org_name');
+        self::$app_name = config('easemob.app_name');
+        self::$client_id = config('easemob.client_id');
+        self::$client_secret = config('easemob.client_secret');
+    }
 
     /**
      * 公共请求方法
