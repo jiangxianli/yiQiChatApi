@@ -13,18 +13,31 @@ class FriendAgree extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
+    /**
+     * @var Request
+     */
     public $request;
 
-
+    /**
+     * 构造函数
+     *
+     * CreateCustomerQrcode constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-
+    /**
+     * 同意加好友
+     *
+     * @return mixed
+     * @author jiangxianli
+     * @created_at 2019-04-24 10:03
+     */
     public function handle()
     {
-
         $data = $this->request->all();
 
         //别人加我为好友
@@ -39,33 +52,22 @@ class FriendAgree extends Job implements SelfHandling
             if (!$friend) {
 
                 $friend = new Friend();
-
                 $friend->owner_id = \Auth::user()->id;
-
                 $friend->friend_id = $customer->id;
-
                 $friend->is_received = true;
-
                 $friend->is_deleted = false;
-
                 $friend->type = $data['type'];
-
                 $friend->save();
 
                 if ($owner) {
-
                     $owner->is_received = true;
-
                     $owner->save();
                 }
 
             }
 
-
             return $this->dispatch(new FriendApplyList($this->request));
 
         }
-
-
     }
 }

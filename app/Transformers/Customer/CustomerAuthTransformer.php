@@ -19,7 +19,7 @@ class CustomerAuthTransformer extends TransformerAbstract
 
     public function transform(Customer $transform)
     {
-        $image  = $transform->image;
+        $image = $transform->image;
         $qrcode = $transform->qrcodeImage;
 
         return [

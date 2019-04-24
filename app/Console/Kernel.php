@@ -14,9 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\Inspire::class,
-        \App\Console\Commands\MakeTransformer::class,
-        \App\Console\Commands\ScaffoldGenerator::class,
-        \App\Console\Commands\PromotionStatus::class,
     ];
 
     /**
@@ -27,10 +24,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-            ->hourly();
-
-        $schedule->command('promotion:status')
-            ->everyFiveMinutes();
+        $schedule->command('inspire')->hourly();
     }
 }

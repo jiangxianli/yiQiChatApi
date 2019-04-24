@@ -4,15 +4,21 @@ namespace App\Helpers;
 
 class AppHelper
 {
-
-
-    public static function imgSrc(/* String */
-        $url, $options = array())
+    /**
+     * 格式化图片路径
+     *
+     * @param $url
+     * @param array $options
+     * @return string
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:22
+     */
+    public static function imgSrc($url, $options = array())
     {
-        $type         = AppHelper::getOption($options, 'type') ? AppHelper::getOption($options, 'type') : 'c';
-        $width        = AppHelper::getOption($options, 'width');
-        $height       = AppHelper:: getOption($options, 'height');
-        $alter_url    = AppHelper::getOption($options, 'alter_url');
+        $type = AppHelper::getOption($options, 'type') ? AppHelper::getOption($options, 'type') : 'c';
+        $width = AppHelper::getOption($options, 'width');
+        $height = AppHelper:: getOption($options, 'height');
+        $alter_url = AppHelper::getOption($options, 'alter_url');
         $combined_url = $url ? ltrim($url, '\/') : $alter_url;
         if ($width && $height && $type) {
             $size_url = "/$type/{$width}x{$height}/";
@@ -24,29 +30,32 @@ class AppHelper
     }
 
     /**
-     * Get option value from options
-     * @param $options Option values
-     * @param $key Option key
-     * @param $default If option has not cotain key, this value will be returned instead
-     * @return $options[$key] or $default if previous is null
+     * 获取选项
+     *
+     * @param $options
+     * @param $key
+     * @param null $default
+     * @return mixed|null
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:18
      */
     public static function getOption($options, $key, $default = null)
     {
         return key_exists($key, $options) ? array_pull($options, $key) : $default;
     }
 
-
     /**
-     *计算某个经纬度的周围某段距离的正方形的四个点
+     * 计算某个经纬度的周围某段距离的正方形的四个点
      *
-     * @param lng float 经度
-     * @param lat float 纬度
-     * @param distance float 该点所在圆的半径，该圆与此正方形内切，默认值为0.5千米
+     * @param $lng 经度
+     * @param $lat 纬度
+     * @param float $distance 该点所在圆的半径，该圆与此正方形内切，默认值为0.5千米
      * @return array 正方形的四个点的经纬度坐标
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:17
      */
     public static function returnSquarePoint($lng, $lat, $distance = 0.5)
     {
-
 //        define(EARTH_RADIUS, 6371);//地球半径，平均半径为6371km
         $EARTH_RADIUS = 6371;
 
@@ -64,10 +73,17 @@ class AppHelper
         );
     }
 
-
+    /**
+     * 生成UUID
+     *
+     * @param string $prefix
+     * @return string
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:22
+     */
     public static function uuid($prefix = "")
     {    //可以指定前缀
-        $str  = md5(uniqid(mt_rand(), true));
+        $str = md5(uniqid(mt_rand(), true));
         $uuid = substr($str, 0, 8) . '-';
         $uuid .= substr($str, 8, 4) . '-';
         $uuid .= substr($str, 12, 4) . '-';
@@ -76,9 +92,16 @@ class AppHelper
         return $prefix . $uuid;
     }
 
+    /**
+     * 百度IP定位
+     *
+     * @param $ip
+     * @return null
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:31
+     */
     public static function ipToPoint($ip)
     {
-
         //初始化
         $ch = curl_init();
 
@@ -98,32 +121,30 @@ class AppHelper
         if ($result && array_key_exists('status', $result)) {
 
             if ($result['status']) return null;
-
             if (array_key_exists('content', $result)) {
-
                 return $result['content']['point'];
             }
-
             return null;
-
         }
-
-
     }
 
-
+    /**
+     * 获取好友备注
+     *
+     * @param $customer
+     * @param $friend
+     * @return mixed
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:32
+     */
     public static function getRemark($customer, $friend)
     {
-
         if ($friend) {
-
             if ($friend->remark) return $friend->remark;
         }
 
         if ($customer->user_name) return $customer->user_name;
-
         if ($customer->user_num) return $customer->user_num;
-
     }
 
 } 

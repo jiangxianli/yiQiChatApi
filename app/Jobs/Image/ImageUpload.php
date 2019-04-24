@@ -13,20 +13,38 @@ class ImageUpload extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
-    public $request;
-
+    /**
+     * 限定图片后缀
+     *
+     * @var array
+     */
     public $ext = ['jpg', 'png', 'jpeg', 'gif'];
 
+    /**
+     * @var Request
+     */
+    public $request;
 
+    /**
+     * 构造函数
+     *
+     * CreateCustomerQrcode constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-
+    /**
+     * 上传图片
+     *
+     * @return Image
+     * @author jiangxianli
+     * @created_at 2019-04-24 10:08
+     */
     public function handle()
     {
-
         $data = $this->request->all();
         \Log::info($data);
 
@@ -38,7 +56,6 @@ class ImageUpload extends Job implements SelfHandling
             $file_extension = $file->getClientOriginalExtension();
 
             if (!in_array(strtolower($file_extension), $this->ext)) {
-
                 self::throwException('10006', trans('error.10006', ['ext' => implode(',', $this->ext)]));
 //                throw new ResourceException('只允许上传'.implode(',',$this->ext).'格式后缀的图片!',null,null,[],1);
             }
@@ -47,10 +64,8 @@ class ImageUpload extends Job implements SelfHandling
 
             //文件保存目录
             $file_dir = public_path() . $upload_dir;
-
             //文件保存名称
             $file_name = time() . str_random(8) . '.' . $file_extension;
-
             //保存文件
             $file->move($file_dir, $file_name);
 
@@ -58,7 +73,6 @@ class ImageUpload extends Job implements SelfHandling
 
             //同时调整宽高
             $imageUtil = $imageUtil->fit(300, 300);
-
             $imageUtil = $imageUtil->save();
 
             //保存图片数据
@@ -71,29 +85,19 @@ class ImageUpload extends Job implements SelfHandling
             ];
 
             try {
-
                 $image = new Image();
                 $image->fill($image_data);
                 $image->save();
-
-
                 return $image;
 
             } catch (\Exception $e) {
-
                 @unlink($file_dir . $file_name);
-
-
                 self::throwException('10007');
                 //throw new ResourceException('图片资源保存失败!',null,null,[],1);
-
             }
-
         } else {
             self::throwException('10008');
 //            throw new ResourceException('上传的图片资源不存在!',null,null,[],1);
         }
-
-
     }
 }

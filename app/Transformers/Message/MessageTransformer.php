@@ -20,9 +20,9 @@ class MessageTransformer extends TransformerAbstract
 
     public function transform(Message $transform)
     {
-        $fromer   = $transform->fromer;
-        $toer     = $transform->toer;
-        $friend   = $transform->friend;
+        $fromer = $transform->fromer;
+        $toer = $transform->toer;
+        $friend = $transform->friend;
         $customer = $transform->customer;
         return [
             'from'            => $transform->from,

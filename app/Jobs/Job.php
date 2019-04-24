@@ -20,7 +20,6 @@ abstract class Job
 
     use Queueable;
 
-
     /**
      * 一，如果有新值，将新的值存入sssion中，返回新值
      * 二，如果session中有值，返回session中的值
@@ -33,34 +32,30 @@ abstract class Job
      */
     public static function getSessionDefaultVal($prefix, $key, $default, $data)
     {
-
-
         if ($data) {
-
             session()->put($prefix . '_' . $key, $data);
-
         } else if (!($data = session()->get($prefix . '_' . $key))) {
-
             session()->put($prefix . '_' . $key, $default);
-
             $data = $default;
-
         }
 
         return $data;
-
     }
 
+    /**
+     * 抛出异常处理
+     *
+     * @param $code
+     * @param null $message
+     * @param int $statusCode
+     * @author jiangxianli
+     * @created_at 2019-04-24 10:15
+     */
     public static function throwException($code, $message = null, $statusCode = 422)
     {
-
         if (is_null($message)) {
-
             $message = trans('error.' . $code) ? trans('error.' . $code) : trans('error.undefined');
-
         }
-
         throw new HttpException($statusCode, $message, null, [], $code);
-
     }
 }

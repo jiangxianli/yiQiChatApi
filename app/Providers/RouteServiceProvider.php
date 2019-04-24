@@ -51,9 +51,7 @@ class RouteServiceProvider extends ServiceProvider
                 require app_path('Http/Routes/friend.php');
                 require app_path('Http/Routes/message.php');
                 require app_path('Http/Routes/image.php');
-
                 require app_path('Http/Routes/mood.php');
-
             });
 
         });

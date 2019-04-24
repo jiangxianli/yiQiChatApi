@@ -17,8 +17,6 @@ class AuthenticateWithToken
      */
     public function handle($request, Closure $next)
     {
-
-
         $accessToken = $request->input('access_token', $request->header('Authorization'));
 
         if ($accessToken == null) {
@@ -28,8 +26,7 @@ class AuthenticateWithToken
         if (!Cache::has("access_tokens.{$accessToken}")) {
             throw new UnauthorizedHttpException('', trans('api.access_token.invalid'));
         }
-
-
+        
         return $next($request);
     }
 }

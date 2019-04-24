@@ -21,7 +21,7 @@ class CustomerDetailTransformer extends TransformerAbstract
     public function transform(Customer $transform)
     {
         $is_friend = false;
-        $friend    = null;
+        $friend = null;
 
         if (\Auth::check()) {
 
@@ -30,7 +30,6 @@ class CustomerDetailTransformer extends TransformerAbstract
             $friend = Friend::where('owner_id', $customer->id)->where('friend_id', $transform->id)->where('is_received', true)->first();
 
             if ($friend) {
-
                 $is_friend = true;
             }
         }

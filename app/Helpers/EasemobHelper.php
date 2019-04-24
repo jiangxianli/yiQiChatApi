@@ -2,19 +2,35 @@
 
 namespace App\Helpers;
 
+/**
+ * 环信聊天
+ *
+ * Class EasemobHelper
+ * @package App\Helpers
+ * @author jiangxianli
+ * @created_at 2019-04-22 11:32
+ */
 class EasemobHelper
 {
-
-
     public static $org_name = '144disk';
     public static $app_name = 'wechat';
     public static $client_id = 'YXA6UojoAGNHEeWZjMGm6zwk3Q';
     public static $client_secret = 'YXA6vmqu0_29BcURpLdYGRV93d2S8WI';
     public static $token_name = 'EasemobToken';
 
+    /**
+     * 公共请求方法
+     *
+     * @param $url
+     * @param array $header
+     * @param $body
+     * @param string $method
+     * @return mixed
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:33
+     */
     public static function postRequestWithHeader($url, $header = array(), $body, $method = 'POST')
     {
-
         array_push($header, 'Accept:application/json');
         array_push($header, 'Content-Type:application/json');
         $ch = curl_init();
@@ -55,16 +71,20 @@ class EasemobHelper
 
     }
 
+    /**
+     * 获取环信Token
+     *
+     * @return mixed|null
+     * @author jiangxianli
+     * @created_at 2019-04-22 11:33
+     */
     public static function getEasemobAuthToken()
     {
-
         if ($token = \Cache::get(self::$token_name)) {
-
             return $token;
         } else {
 
             $url = "https://a1.easemob.com/" . self::$org_name . "/" . self::$app_name . "/token";
-
             $header = array();
 
             $body = '{
@@ -74,27 +94,27 @@ class EasemobHelper
                 }';
 
             $data = self::postRequestWithHeader($url, $header, $body);
-
             if (array_key_exists('access_token', $data)) {
-
                 \Cache::pull(self::$token_name, $data['access_token'], 60 * 24 * 5);
-
                 return $data['access_token'];
 
             } else {
-
                 \Log::error('----------------获取环信管理员token失败---------------');
                 return null;
-
             }
-
         }
 
     }
 
+    /**
+     * 发送缓存消息
+     *
+     * @param $username
+     * @author jiangxianli
+     * @created_at 2019-04-24 9:33
+     */
     public static function sendTextMsg($username)
     {
-
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
@@ -120,29 +140,32 @@ class EasemobHelper
             $data = self::postRequestWithHeader($url, $header, $body);
 
             if (array_key_exists('error', $data)) {
-
                 \Log::error('-------- 发送文本消息失败 ---------');
 
             } else {
-
-                \Log::error('-------- 发送文本消息成功 ---------');
+                \Log::info('-------- 发送文本消息成功 ---------');
 
             }
-
         } else {
-            \Log::info('-----------没有TOKEN-------------');
+            \Log::error('-----------没有TOKEN-------------');
         }
 
     }
 
+    /**
+     * 添加好友
+     *
+     * @param $owner_username
+     * @param $friend_username
+     * @author jiangxianli
+     * @created_at 2019-04-24 9:33
+     */
     public static function addFriend($owner_username, $friend_username)
     {
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
-
             $url = "https://a1.easemob.com/" . self::$org_name . "/" . self::$app_name . "/users/" . $owner_username . "/contacts/users/" . $friend_username;
-
             $header = array(
                 'Authorization: Bearer ' . $auth_token
             );
@@ -152,25 +175,26 @@ class EasemobHelper
             $data = self::postRequestWithHeader($url, $header, $body);
 
             if (array_key_exists('error', $data)) {
-
                 \Log::error('-------- 添加朋友失败 ---------');
-
             } else {
-
-                \Log::error('-------- 添加朋友成功 ---------');
-
+                \Log::info('-------- 添加朋友成功 ---------');
             }
-
         } else {
-            \Log::info('-----------没有TOKEN-------------');
+            \Log::error('-----------没有TOKEN-------------');
         }
-
-
     }
 
+    /**
+     * 注册环信用户
+     *
+     * @param $username
+     * @param $password
+     * @return null
+     * @author jiangxianli
+     * @created_at 2019-04-24 9:34
+     */
     public static function registerEasemobUser($username, $password)
     {
-
         $auth_token = self::getEasemobAuthToken();
 
         if ($auth_token) {
@@ -183,7 +207,6 @@ class EasemobHelper
             );
 
             $body = '{
-
                 "username":"' . $username . '",
                 "password":"' . $password . '"
             }';
@@ -191,17 +214,13 @@ class EasemobHelper
             $data = self::postRequestWithHeader($url, $header, $body);
 
             if (array_key_exists('error', $data)) {
-
                 return null;
-
             } else {
-
                 return $data['entities'][0];
             }
         } else {
-
             return null;
-            \Log::error('-----------No Easemob Token------------------');
+            \Log::error('-----------没有TOKEN-------------');
         }
     }
 

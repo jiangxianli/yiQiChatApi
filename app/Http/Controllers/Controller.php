@@ -14,11 +14,30 @@ abstract class Controller extends BaseController
 
     use Helpers;
 
+    /**
+     * 获取数组特定Key值
+     *
+     * @param $data
+     * @param $key
+     * @param null $default
+     * @return null
+     * @author jiangxianli
+     * @created_at 2019-04-24 9:35
+     */
     public static function getArrayDefaultVal($data, $key, $default = null)
     {
         return array_key_exists($key, $data) ? $data[$key] : $default;
     }
 
+    /**
+     * 抛出异常
+     *
+     * @param $code
+     * @param null $message
+     * @param int $statusCode
+     * @author jiangxianli
+     * @created_at 2019-04-24 9:35
+     */
     public static function throwException($code, $message = null, $statusCode = 422)
     {
         if (is_null($message)) {

@@ -15,7 +15,7 @@ abstract class Request extends FormRequest
      */
     public function createMessages($prefix = '')
     {
-        $rules    = $this->rules();
+        $rules = $this->rules();
         $messages = [];
 
         foreach ($rules as $field => $rule) {
@@ -24,7 +24,7 @@ abstract class Request extends FormRequest
             }
 
             foreach ($rule as $r) {
-                $k                           = explode(':', $r)[0];
+                $k = explode(':', $r)[0];
                 $messages[$field . '.' . $k] = trans($prefix . $field . '.' . $k);
             }
         }
