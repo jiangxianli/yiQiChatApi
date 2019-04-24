@@ -70,7 +70,7 @@ class EasemobHelper
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        if (isset($body{3}) > 0) {
+        if (!empty($body)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
         if (count($header) > 0) {
@@ -78,7 +78,7 @@ class EasemobHelper
         }
         $ret = curl_exec($ch);
         curl_close($ch);
-
+        \Log::info(json_encode([$ret, $url, $header, $body]));
         $data = json_decode($ret, true);
         return $data;
 
