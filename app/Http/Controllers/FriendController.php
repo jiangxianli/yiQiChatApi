@@ -87,13 +87,14 @@ class FriendController extends Controller
     /**
      * 获取朋友列表
      *
+     * @param Request $request
      * @return \Dingo\Api\Http\Response
      * @author jiangxianli
      * @created_at 2019-04-24 9:41
      */
-    public function getFriendList()
+    public function getFriendList(Request $request)
     {
-        $job = new FriendList();
+        $job = new FriendList($request);
 
         $friends = $this->dispatch($job);
 
