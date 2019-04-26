@@ -36,6 +36,10 @@ class CreateMood extends Job implements SelfHandling
     {
         $data = $this->request->all();
 
+        if (empty($data['content']) || empty(trim($data['content']))) {
+            self::throwException(20001);
+        }
+
         $mood = new Mood();
         $mood->fill($data);
         $mood->u_num = time() . rand(10000, 99999);
